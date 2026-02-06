@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    "group:allNonMajor"
+  ],
+  "schedule": ["before 6am on Monday"],
+  "timezone": "America/New_York",
+  "labels": ["dependencies"],
+  "assignees": ["acockrell"],
+  "packageRules": [
+    {
+      "description": "Group all Go dependencies (non-major)",
+      "matchDatasources": ["go"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "Go dependencies"
+    },
+    {
+      "description": "Group all GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Automerge patch updates that pass checks",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Separate major updates for careful review",
+      "matchUpdateTypes": ["major"],
+      "groupName": "Major updates",
+      "schedule": ["before 6am on the first day of the month"],
+      "automerge": false
+    },
+    {
+      "description": "Priority for security vulnerabilities",
+      "matchDatasources": ["go"],
+      "vulnerabilityAlerts": {
+        "labels": ["security", "dependencies"],
+        "assignees": ["acockrell"],
+        "schedule": ["at any time"]
+      }
+    }
+  ],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "chore(deps):",
+  "rebaseWhen": "behind-base-branch"
+}
