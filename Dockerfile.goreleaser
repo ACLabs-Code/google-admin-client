@@ -1,7 +1,7 @@
 # Dockerfile for GoReleaser builds
 # This uses the pre-built binary from goreleaser
 
-FROM alpine:3.20
+FROM alpine:3.23
 
 # Install ca-certificates for HTTPS connections
 RUN apk --no-cache add ca-certificates tzdata && \
