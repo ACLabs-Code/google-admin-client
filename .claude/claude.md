@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-**gac** is a command-line tool for managing Google Workspace administrative operations (users, groups, calendars, organizational units, etc.). Built with Go 1.25, it provides a simple interface for automating Google Workspace admin tasks through the Google Admin SDK APIs.
+**gac** is a command-line tool for managing Google Workspace administrative operations (users, groups, calendars, organizational units, etc.). Built with Go 1.26, it provides a simple interface for automating Google Workspace admin tasks through the Google Admin SDK APIs.
 
 **Tech Stack:**
-- Go 1.25 (recently upgraded)
+- Go 1.26 (recently upgraded)
 - [Cobra](https://github.com/spf13/cobra) - CLI framework
 - [Viper](https://github.com/spf13/viper) - Configuration management
 - [Zerolog](https://github.com/rs/zerolog) - Structured logging
@@ -297,6 +297,26 @@ go tool cover -html=coverage.out
 
 # Run specific test
 go test -v -run TestFunctionName ./cmd
+```
+
+### Security Scanning
+
+**Gosec Version Management:**
+- Gosec GitHub Action is pinned to a specific version tag (currently v2.23.0)
+- Rationale: Prevents SARIF upload failures from unstable master branch
+- Update process: Renovate will create PRs for new stable versions
+- Manual updates: Check https://github.com/securego/gosec/releases
+
+**Local Security Scanning:**
+```bash
+# Run gosec locally (version should match .github/workflows/pr-checks.yml)
+make gosec
+
+# Or run directly
+gosec ./...
+
+# Generate SARIF output (for testing)
+gosec -fmt sarif -out results.sarif ./...
 ```
 
 ### Pre-commit Hooks

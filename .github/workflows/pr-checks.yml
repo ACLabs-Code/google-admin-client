@@ -26,7 +26,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: '1.26'
           cache: true  # Built-in caching for go.mod and go.sum
 
       - name: Download dependencies
@@ -61,7 +61,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: '1.26'
           cache: true
 
       - name: Run golangci-lint
@@ -81,7 +81,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: '1.26'
           cache: true
 
       - name: Build binary
@@ -105,11 +105,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: '1.26'
           cache: true
 
+      # Pinned to v2.23.0 (not @master) to ensure stable SARIF output
+      # Update when new stable versions are released: https://github.com/securego/gosec/releases
       - name: Run Gosec Security Scanner
-        uses: securego/gosec@master
+        uses: securego/gosec@v2.23.0
         with:
           args: '-fmt sarif -out gosec-results.sarif ./...'
 

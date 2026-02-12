@@ -56,9 +56,10 @@ lint:
 	golangci-lint run ./...
 
 ## gosec: Run security scanner (requires gosec)
+# Version should match .github/workflows/pr-checks.yml (currently v2.23.0)
 gosec:
 	@echo "Running security scanner..."
-	@which gosec > /dev/null || (echo "gosec not installed. Install with: go install github.com/securego/gosec/v2/cmd/gosec@latest" && exit 1)
+	@which gosec > /dev/null || (echo "gosec not installed. Install with: go install github.com/securego/gosec/v2/cmd/gosec@v2.23.0" && exit 1)
 	gosec ./...
 
 ## fmt: Format code
