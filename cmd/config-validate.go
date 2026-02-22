@@ -165,34 +165,41 @@ func configValidateRunFunc(cmd *cobra.Command, args []string) {
 
 	fmt.Printf("  ℹ Cache file path: %s\n", cacheFilePath)
 
-	// Check if cache file exists
-	fileInfo, err := os.Stat(cacheFilePath)
-	if err != nil {
-		if os.IsNotExist(err) {
-			fmt.Println("  ℹ Token cache file does not exist yet (will be created on first auth)")
-		} else {
-			fmt.Printf("  ⚠ Warning: Error accessing cache file: %v\n", err)
-			hasWarnings = true
-		}
+	// Validate path to prevent directory traversal
+	if err := validateCredentialPath(cacheFilePath); err != nil {
+		fmt.Printf("  ✗ Invalid cache file path: %v\n", err)
+		hasErrors = true
 	} else {
-		fmt.Println("  ✓ Token cache file exists")
-
-		// Check file permissions
-		mode := fileInfo.Mode()
-		fmt.Printf("  ✓ File permissions: %s\n", mode.Perm())
-
-		// Warn if file is world-readable
-		if mode.Perm()&0044 != 0 {
-			fmt.Println("  ⚠ Warning: Token cache file is world-readable (consider: chmod 600)")
-			hasWarnings = true
-		}
-
-		// Try to validate token if it exists
-		if validateToken(cacheFilePath) {
-			fmt.Println("  ✓ Token cache is valid")
+		// Check if cache file exists
+		// #nosec G703 - Path is validated by validateCredentialPath() above
+		fileInfo, err := os.Stat(cacheFilePath)
+		if err != nil {
+			if os.IsNotExist(err) {
+				fmt.Println("  ℹ Token cache file does not exist yet (will be created on first auth)")
+			} else {
+				fmt.Printf("  ⚠ Warning: Error accessing cache file: %v\n", err)
+				hasWarnings = true
+			}
 		} else {
-			fmt.Println("  ⚠ Warning: Token cache may be invalid or expired (re-authentication may be required)")
-			hasWarnings = true
+			fmt.Println("  ✓ Token cache file exists")
+
+			// Check file permissions
+			mode := fileInfo.Mode()
+			fmt.Printf("  ✓ File permissions: %s\n", mode.Perm())
+
+			// Warn if file is world-readable
+			if mode.Perm()&0044 != 0 {
+				fmt.Println("  ⚠ Warning: Token cache file is world-readable (consider: chmod 600)")
+				hasWarnings = true
+			}
+
+			// Try to validate token if it exists
+			if validateToken(cacheFilePath) {
+				fmt.Println("  ✓ Token cache is valid")
+			} else {
+				fmt.Println("  ⚠ Warning: Token cache may be invalid or expired (re-authentication may be required)")
+				hasWarnings = true
+			}
 		}
 	}
 	fmt.Println()
@@ -221,7 +228,7 @@ func validateToken(cacheFilePath string) bool {
 	}
 
 	// Read token from file
-	// #nosec G304 - Path is validated by validateCredentialPath() above
+	// #nosec G304,G703 - Path is validated by validateCredentialPath() above
 	tokenBytes, err := os.ReadFile(cacheFilePath)
 	if err != nil {
 		return false
