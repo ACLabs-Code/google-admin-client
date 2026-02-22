@@ -88,7 +88,7 @@ func confirmAction(message string, force bool) bool {
 func confirmDeletion(resourceType, resourceName, additionalInfo string, force bool) bool {
 	var message strings.Builder
 
-	message.WriteString(fmt.Sprintf("WARNING: You are about to delete %s: %s\n", resourceType, resourceName))
+	fmt.Fprintf(&message, "WARNING: You are about to delete %s: %s\n", resourceType, resourceName)
 	message.WriteString("This operation cannot be undone.\n")
 
 	if additionalInfo != "" {
