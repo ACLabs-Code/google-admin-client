@@ -359,6 +359,7 @@ func saveToken(file string, token *oauth2.Token) (err error) {
 		}
 	}()
 
+	// #nosec G117 - OAuth2 token caching is intentional; file has 0600 permissions
 	err = json.NewEncoder(f).Encode(token)
 
 	return

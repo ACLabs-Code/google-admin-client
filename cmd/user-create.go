@@ -15,8 +15,9 @@ import (
 const EMAIL = `Your Google Workspace account has been created.
 
 Username: %s
-Password: %s
 URL: https://www.google.com/accounts/AccountChooser?Email=%s&continue=https://apps.google.com/user/hub
+
+Note: A random password has been generated and the user will be required to change it on first login.
 
 `
 
@@ -54,14 +55,14 @@ one or more groups.
 The user is created with a random password, and an update of the password is
 forced on first login.
 
-The resultant user record, including password is output.
+User information is output (password is NOT displayed for security reasons).
 
 Future Enhancements
 -------------------
 
 1. Read from STDIN
 
-2. Output only personal email address & password
+2. Output only personal email address (password removed for security)
 
 3. If group assignment fails, undo user creation (i.e. make this a transaction)
 
@@ -166,7 +167,7 @@ func createUserRunFuncInteractive(cmd *cobra.Command, args []string) {
 		}
 	}
 
-	fmt.Printf(EMAIL, user.PrimaryEmail, user.Password, user.PrimaryEmail)
+	fmt.Printf(EMAIL, user.PrimaryEmail, user.PrimaryEmail)
 }
 
 func collectUserInfo(user *admin.User) (err error) {
