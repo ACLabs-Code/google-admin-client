@@ -859,9 +859,9 @@ func TestHelperFunctions_Integration(t *testing.T) {
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 
-		// Generate and print output
-		password := randomPassword(12)
-		fmt.Println(password)
+		// Generate and print test output (not sensitive data)
+		testMessage := "test output message"
+		fmt.Println(testMessage)
 
 		// Restore stdout
 		if err := w.Close(); err != nil {
@@ -876,9 +876,9 @@ func TestHelperFunctions_Integration(t *testing.T) {
 		}
 		output := buf.String()
 
-		// Verify output
-		if !strings.Contains(output, password) {
-			t.Errorf("Expected output to contain password %s, got %s", password, output)
+		// Verify output capture works
+		if !strings.Contains(output, testMessage) {
+			t.Errorf("Expected output to contain '%s', got '%s'", testMessage, output)
 		}
 	})
 
