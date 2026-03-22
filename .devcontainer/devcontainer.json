@@ -1,6 +1,6 @@
 {
   "name": "gac Development",
-  "image": "mcr.microsoft.com/devcontainers/go:1.25",
+  "image": "mcr.microsoft.com/devcontainers/go:1.26",
 
   "customizations": {
     "vscode": {
