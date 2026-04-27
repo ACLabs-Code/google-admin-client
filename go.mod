@@ -27,7 +27,7 @@ require (
 require (
 	github.com/google/uuid v1.6.0
 	github.com/olekukonko/tablewriter v1.1.4
-	github.com/rs/zerolog v1.35.0
+	github.com/rs/zerolog v1.35.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
