@@ -161,7 +161,7 @@ func formatPlain(w io.Writer, data interface{}) error {
 	v := reflect.ValueOf(data)
 
 	// Handle pointer
-	if v.Kind() == reflect.Ptr {
+	if v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}
 
@@ -184,7 +184,7 @@ func formatPlainItem(w io.Writer, item interface{}) error {
 	v := reflect.ValueOf(item)
 
 	// Handle pointer
-	if v.Kind() == reflect.Ptr {
+	if v.Kind() == reflect.Pointer {
 		if v.IsNil() {
 			return nil
 		}
@@ -249,7 +249,7 @@ func convertToRows(data interface{}, headers []string) ([][]string, error) {
 	v := reflect.ValueOf(data)
 
 	// Handle pointer
-	if v.Kind() == reflect.Ptr {
+	if v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}
 
@@ -280,7 +280,7 @@ func convertItemToRow(item interface{}, headers []string) ([]string, error) {
 	v := reflect.ValueOf(item)
 
 	// Handle pointer
-	if v.Kind() == reflect.Ptr {
+	if v.Kind() == reflect.Pointer {
 		if v.IsNil() {
 			return make([]string, len(headers)), nil
 		}
