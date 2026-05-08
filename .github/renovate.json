@@ -10,6 +10,13 @@
   "timezone": "America/New_York",
   "labels": ["dependencies"],
   "assignees": ["acockrell"],
+  "deleteBranchAfterMerge": true,
+  "vulnerabilityAlerts": {
+    "labels": ["security", "dependencies"],
+    "assignees": ["acockrell"],
+    "schedule": ["at any time"],
+    "automerge": true
+  },
   "packageRules": [
     {
       "description": "Group all Go dependencies (non-major)",
@@ -18,9 +25,18 @@
       "groupName": "Go dependencies"
     },
     {
-      "description": "Group all GitHub Actions",
+      "description": "Group all GitHub Actions and pin to digest SHAs",
       "matchManagers": ["github-actions"],
-      "groupName": "GitHub Actions"
+      "groupName": "GitHub Actions",
+      "pinDigests": true
+    },
+    {
+      "description": "Automerge GitHub Actions minor/patch updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
     },
     {
       "description": "Automerge patch updates that pass checks",
@@ -35,20 +51,10 @@
       "groupName": "Major updates",
       "schedule": ["before 6am on the first day of the month"],
       "automerge": false
-    },
-    {
-      "description": "Priority for security vulnerabilities",
-      "matchDatasources": ["go"],
-      "vulnerabilityAlerts": {
-        "labels": ["security", "dependencies"],
-        "assignees": ["acockrell"],
-        "schedule": ["at any time"]
-      }
     }
   ],
   "prConcurrentLimit": 5,
   "prHourlyLimit": 2,
   "semanticCommits": "enabled",
-  "commitMessagePrefix": "chore(deps):",
   "rebaseWhen": "behind-base-branch"
 }
