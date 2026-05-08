@@ -10,7 +10,6 @@
   "timezone": "America/New_York",
   "labels": ["dependencies"],
   "assignees": ["acockrell"],
-  "deleteBranchAfterMerge": true,
   "vulnerabilityAlerts": {
     "labels": ["security", "dependencies"],
     "assignees": ["acockrell"],
