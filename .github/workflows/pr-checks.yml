@@ -3,6 +3,13 @@ name: PR Checks
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - '**/*.go'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Makefile'
+      - 'Dockerfile'
+      - '.github/workflows/pr-checks.yml'
 
 # Cancel in-progress runs when a new commit is pushed
 concurrency:
