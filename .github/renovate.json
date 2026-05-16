@@ -55,6 +55,7 @@
       "automerge": false
     }
   ],
+  "ignoreDeps": ["aquasecurity/trivy-action"],
   "prConcurrentLimit": 5,
   "prHourlyLimit": 2,
   "semanticCommits": "enabled",
