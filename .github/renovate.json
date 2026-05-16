@@ -8,33 +8,35 @@
   ],
   "schedule": ["before 6am on Monday"],
   "timezone": "America/Vancouver",
+  "minimumReleaseAge": "3 days",
   "labels": ["dependencies"],
   "assignees": ["acockrell"],
   "vulnerabilityAlerts": {
     "labels": ["security", "dependencies"],
     "assignees": ["acockrell"],
     "schedule": ["at any time"],
-    "automerge": true
+    "automerge": true,
+    "platformAutomerge": true
   },
   "packageRules": [
     {
-      "description": "Group all Go dependencies (non-major)",
+      "description": "Group all Go dependencies (non-major), automerge minor/patch/digest",
       "matchDatasources": ["go"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
-      "groupName": "Go dependencies"
-    },
-    {
-      "description": "Group all GitHub Actions and pin to digest SHAs",
-      "matchManagers": ["github-actions"],
-      "groupName": "GitHub Actions",
-      "pinDigests": true
-    },
-    {
-      "description": "Automerge GitHub Actions minor/patch updates",
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Go dependencies",
       "automerge": true,
       "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Group all GitHub Actions, pin to digest SHAs, automerge all non-major",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "pinDigests": true,
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true,
       "automergeStrategy": "squash"
     },
     {
@@ -42,6 +44,7 @@
       "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "pr",
+      "platformAutomerge": true,
       "automergeStrategy": "squash"
     },
     {
