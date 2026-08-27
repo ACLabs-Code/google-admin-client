@@ -33,7 +33,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
-          go-version: '1.26'
+          go-version: '1.27'
           cache: true  # Built-in caching for go.mod and go.sum
 
       - name: Download dependencies
@@ -68,7 +68,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
-          go-version: '1.26'
+          go-version: '1.27'
           cache: true
 
       - name: Run golangci-lint
@@ -88,7 +88,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
-          go-version: '1.26'
+          go-version: '1.27'
           cache: true
 
       - name: Build binary
@@ -112,7 +112,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
-          go-version: '1.26'
+          go-version: '1.27'
           cache: true
 
       # Pinned to v2.23.0 (not @master) to ensure stable SARIF output
