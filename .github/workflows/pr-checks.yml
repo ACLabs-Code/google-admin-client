@@ -10,6 +10,7 @@ on:
       - 'Makefile'
       - 'Dockerfile'
       - '.github/workflows/**'
+      - '.devcontainer/**'
 
 # Cancel in-progress runs when a new commit is pushed
 concurrency:
